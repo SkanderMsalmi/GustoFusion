@@ -1,0 +1,27 @@
+version: "3.9"
+services:
+
+  discovery:
+    build: ./eurekaserver
+    ports:
+      - "8761:8761"
+    image: erueka
+
+  gestionreservation:
+    build: ./gestionreservation
+    environment:
+      - eureka.client.serviceUrl.defaultZone=http://discovery:8761/eureka/
+    ports:
+      - "8082:8082"
+    image: "gestion_reservation"
+    depends_on:
+      - discovery
+  # apigateway:
+  #   build: ./API_Gateway_Server
+  #   environment:
+  #     - eureka.client.serviceUrl.defaultZone=http://discovery:8761/eureka/
+  #   ports:
+  #     - "8088:8088"
+  #   image: apigateway
+  #   depends_on:
+  #     - discovery
