@@ -1,23 +1,120 @@
 package com.gustofusion.gestionreservation.controller;
 
 import com.gustofusion.gestionreservation.entites.Reservation;
+import com.gustofusion.gestionreservation.entites.ReservationStatus;
 import com.gustofusion.gestionreservation.services.ReservationService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.time.LocalDateTime;
+import java.util.Date;
+import java.util.List;
 
 @RestController()
-@RequestMapping(value = "/api/reservation")
+@RequestMapping(value = "/reservation")
 public class ReservationController {
     @Autowired
     private ReservationService reservationService;
 
+
     @GetMapping()
-    public String getHello(){
-        return "hello";
+    public ResponseEntity<List<Reservation>> retrieveAllReservation(){
+        List<Reservation> reservations = reservationService.getReservation();
+        return new ResponseEntity<>(reservations,HttpStatus.OK);
     }
 
 
+    @PostMapping
+    public ResponseEntity<Reservation> createReservation(@RequestBody Reservation reservation) {
+        Reservation createdReservation = reservationService.createReservation(reservation);
+        return new ResponseEntity<>(createdReservation, HttpStatus.CREATED);
+    }
+
+    // Retrieve a reservation by ID
+    @GetMapping("/{id}")
+    public ResponseEntity<Reservation> getReservation(@PathVariable Integer id) {
+        Reservation reservation = reservationService.getReservationById(id);
+        if (reservation != null) {
+            return new ResponseEntity<>(reservation, HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
+
+    // Update a reservation
+    @PutMapping("/{id}")
+    public ResponseEntity<Reservation> updateReservation(@PathVariable Integer id, @RequestBody Reservation reservation) {
+        Reservation updatedReservation = reservationService.updateReservation(id, reservation);
+        if (updatedReservation != null) {
+            return new ResponseEntity<>(updatedReservation, HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
+
+    // Delete a reservation by ID
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteReservation(@PathVariable Integer id) {
+        if (reservationService.deleteReservation(id)) {
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        } else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
+
+    @PutMapping("/{id}/status")
+    public ResponseEntity<Reservation> setReservationStatus(
+            @PathVariable Integer id,
+            @RequestParam ReservationStatus status
+    ) {
+        Reservation updatedReservation = reservationService.updateReservationStatus(id, status);
+
+        if (updatedReservation != null) {
+            return new ResponseEntity<>(updatedReservation, HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
+
+    @GetMapping("/byTableNumber/{tableNumber}")
+    public ResponseEntity<List<Reservation>> getReservationsByTableNumber(@PathVariable int tableNumber) {
+        List<Reservation> reservations = reservationService.getReservationsByTableNumber(tableNumber);
+
+        if (!reservations.isEmpty()) {
+            return new ResponseEntity<>(reservations, HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
+
+    // Retrieve reservations within a time range
+    @GetMapping("/byTimeRange")
+    public ResponseEntity<List<Reservation>> getReservationsByTimeRange(
+            @RequestBody Date startTime
+          ) {
+//        List<Reservation> reservations = reservationService.getReservationsByTimeRange(startTime, endTime);
+
+//        if (!reservations.isEmpty()) {
+//            return new ResponseEntity<>(reservations, HttpStatus.OK);
+//        } else {
+//            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+//        }
+
+        System.out.println(startTime);
+        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    }
+    @GetMapping("/byCustomerName/{customerName}")
+    public ResponseEntity<List<Reservation>> getReservationsByCustomerName(
+            @RequestParam String customerName) {
+        List<Reservation> reservations = reservationService.getReservationsByCustomerName(customerName);
+
+        if (!reservations.isEmpty()) {
+            return new ResponseEntity<>(reservations, HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
 }
