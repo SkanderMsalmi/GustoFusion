@@ -34,12 +34,12 @@ public class Reservation implements Serializable {
 
     @Column(nullable = true)
     private String customerName;
+    @Column(nullable = true)
+    private String contactInformation;
     private String specialRequests;
 
-    @Column(name = "table_number")
-    @Min(value = 1, message = "Table number must be at least 1")
-    @Max(value = 100, message = "Table number cannot exceed 100")
-    private Integer tableNumber;
+
+
     @Column(nullable = true)
     private double totalPrice;
 
@@ -49,6 +49,9 @@ public class Reservation implements Serializable {
     @Column(nullable = true)
     private String cancellationPolicy;
 
+    @ManyToOne
+    @JoinColumn(name = "table_id")
+    private RestaurantTable table;
 
 
 
