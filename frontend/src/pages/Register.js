@@ -1,13 +1,16 @@
-/* eslint-disable jsx-a11y/no-redundant-roles */
 import React from "react";
 
-function BookTableSection() {
+function Register() {
   return (
-    <section id="book-a-table" className="book-a-table main-div">
+    <section
+      id="book-a-table"
+      className="book-a-table"
+      style={{ marginTop: "100px" }}
+    >
       <div className="container" data-aos="fade-up">
         <div className="section-title">
-          <h2>Reservation</h2>
-          <p>Book a Table</p>
+          <h2>GustoFusion</h2>
+          <p>Register</p>
         </div>
 
         <form
@@ -18,8 +21,15 @@ function BookTableSection() {
           data-aos="fade-up"
           data-aos-delay={100}
         >
-          <div className="row">
-            <div className="col-lg-4 col-md-6 form-group">
+          <div className="row mx-auto " style={{ width: "50%" }}>
+            <label
+              htmlFor="name"
+              className="ms-2 mb-3 "
+              style={{ textAlign: "left" }}
+            >
+              Name
+            </label>
+            <div className=" form-group">
               <input
                 type="text"
                 name="name"
@@ -31,7 +41,14 @@ function BookTableSection() {
               />
               <div className="validate" />
             </div>
-            <div className="col-lg-4 col-md-6 form-group mt-3 mt-md-0">
+            <label
+              htmlFor="name"
+              className="ms-2 my-3 "
+              style={{ textAlign: "left" }}
+            >
+              Email
+            </label>
+            <div className=" form-group mt-3 mt-md-0">
               <input
                 type="email"
                 className="form-control"
@@ -43,9 +60,16 @@ function BookTableSection() {
               />
               <div className="validate" />
             </div>
-            <div className="col-lg-4 col-md-6 form-group mt-3 mt-md-0">
+            <label
+              htmlFor="name"
+              className="ms-2 my-3 "
+              style={{ textAlign: "left" }}
+            >
+              Phone
+            </label>
+            <div className=" form-group mt-3 mt-md-0">
               <input
-                type="text"
+                type="number"
                 className="form-control"
                 name="phone"
                 id="phone"
@@ -55,53 +79,27 @@ function BookTableSection() {
               />
               <div className="validate" />
             </div>
-            <div className="col-lg-4 col-md-6 form-group mt-3">
+            <label
+              htmlFor="name"
+              className="ms-2 my-3 "
+              style={{ textAlign: "left" }}
+            >
+              Password
+            </label>
+            <div className=" form-group mt-3 mt-md-0">
               <input
-                type="text"
-                name="date"
+                type="password"
                 className="form-control"
-                id="date"
-                placeholder="Date"
+                name="password"
+                id="password"
+                placeholder="Password"
                 data-rule="minlen:4"
                 data-msg="Please enter at least 4 chars"
               />
               <div className="validate" />
             </div>
-            <div className="col-lg-4 col-md-6 form-group mt-3">
-              <input
-                type="text"
-                className="form-control"
-                name="time"
-                id="time"
-                placeholder="Time"
-                data-rule="minlen:4"
-                data-msg="Please enter at least 4 chars"
-              />
-              <div className="validate" />
-            </div>
-            <div className="col-lg-4 col-md-6 form-group mt-3">
-              <input
-                type="number"
-                className="form-control"
-                name="people"
-                id="people"
-                placeholder="# of people"
-                data-rule="minlen:1"
-                data-msg="Please enter at least 1 chars"
-              />
-              <div className="validate" />
-            </div>
           </div>
-          <div className="form-group mt-3">
-            <textarea
-              className="form-control"
-              name="message"
-              rows={5}
-              placeholder="Message"
-              defaultValue={""}
-            />
-            <div className="validate" />
-          </div>
+
           <div className="mb-3">
             <div className="loading">Loading</div>
             <div className="error-message" />
@@ -110,8 +108,8 @@ function BookTableSection() {
               to confirm your reservation. Thank you!
             </div>
           </div>
-          <div className="text-center">
-            <button type="submit">Book a Table</button>
+          <div className="text-center mt-5">
+            <button type="submit">Register</button>
           </div>
         </form>
       </div>
@@ -119,4 +117,4 @@ function BookTableSection() {
   );
 }
 
-export default BookTableSection;
+export default Register;
