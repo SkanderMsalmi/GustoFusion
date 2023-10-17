@@ -3,13 +3,14 @@ package com.gustofusion.gestionreservation.controller;
 import com.gustofusion.gestionreservation.entites.Reservation;
 import com.gustofusion.gestionreservation.entites.ReservationStatus;
 import com.gustofusion.gestionreservation.services.ReservationService;
+import com.gustofusion.gestionreservation.services.TableService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.time.LocalDateTime;
+
 import java.util.Date;
 import java.util.List;
 
@@ -18,7 +19,8 @@ import java.util.List;
 public class ReservationController {
     @Autowired
     private ReservationService reservationService;
-
+    @Autowired
+    private TableService tableService;
 
     @GetMapping()
     public ResponseEntity<List<Reservation>> retrieveAllReservation(){
@@ -27,10 +29,10 @@ public class ReservationController {
     }
 
 
-    @PostMapping
-    public ResponseEntity<Reservation> createReservation(@RequestBody Reservation reservation) {
-        Reservation createdReservation = reservationService.createReservation(reservation);
-        return new ResponseEntity<>(createdReservation, HttpStatus.CREATED);
+    @PostMapping("/{tableId}/reservations")
+    public ResponseEntity<String> addReservationToTable(@PathVariable Integer tableId, @RequestBody Reservation reservation) {
+        ResponseEntity<String> response = reservationService.addReservationToTable(tableId, reservation);
+        return new ResponseEntity<>(response.getBody(), response.getStatusCode());
     }
 
     // Retrieve a reservation by ID
@@ -79,16 +81,7 @@ public class ReservationController {
         }
     }
 
-    @GetMapping("/byTableNumber/{tableNumber}")
-    public ResponseEntity<List<Reservation>> getReservationsByTableNumber(@PathVariable int tableNumber) {
-        List<Reservation> reservations = reservationService.getReservationsByTableNumber(tableNumber);
 
-        if (!reservations.isEmpty()) {
-            return new ResponseEntity<>(reservations, HttpStatus.OK);
-        } else {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
-    }
 
     // Retrieve reservations within a time range
     @GetMapping("/byTimeRange")

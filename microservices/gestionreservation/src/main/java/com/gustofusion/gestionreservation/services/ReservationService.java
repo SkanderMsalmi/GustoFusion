@@ -2,21 +2,59 @@ package com.gustofusion.gestionreservation.services;
 
 import com.gustofusion.gestionreservation.entites.Reservation;
 import com.gustofusion.gestionreservation.entites.ReservationStatus;
+import com.gustofusion.gestionreservation.entites.RestaurantTable;
 import com.gustofusion.gestionreservation.repositories.ReservationRepository;
+import com.gustofusion.gestionreservation.repositories.TableRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.List;
 
 @Service
 public class ReservationService {
     @Autowired
+    private TableRepository restaurantTableRepository;
+    @Autowired
     private  ReservationRepository reservationRepository;
-    public Reservation createReservation(Reservation reservation) {
-        // Implement your business logic for creating a reservation
-        // You can add validation, calculations, or other operations here
-        return reservationRepository.save(reservation);
+
+    public ResponseEntity<String> addReservationToTable(Integer tableId, Reservation reservation) {
+        RestaurantTable table = restaurantTableRepository.findById(tableId).orElse(null);
+
+        if (table != null) {
+            Date reservationDateTime = reservation.getReservationDateTime();
+            Date reservationStartDateTime = reservation.getReservationStartDateTime();
+            Date reservationEndDateTime = reservation.getReservationEndDateTime();
+
+            if (isTableAvailable(table, reservationDateTime, reservationStartDateTime, reservationEndDateTime)) {
+                reservation.setTable(table);
+                reservation.setStatus(ReservationStatus.PENDING);
+                Reservation addedReservation = reservationRepository.save(reservation);
+
+                String message = "Reservation successfully added.";
+                return new ResponseEntity<>(message, HttpStatus.CREATED);
+            } else {
+                return new ResponseEntity<>("The table is already reserved during the requested time period.", HttpStatus.CONFLICT);
+            }
+        }
+
+        return new ResponseEntity<>("Table with ID " + tableId + " not found.", HttpStatus.NOT_FOUND);
+    }
+
+    private boolean isTableAvailable(RestaurantTable table, Date reservationDateTime, Date reservationStartDateTime, Date reservationEndDateTime) {
+        List<Reservation> existingReservations = reservationRepository.findByTable(table);
+
+        for (Reservation existingReservation : existingReservations) {
+            if (reservationStartDateTime.before(existingReservation.getReservationEndDateTime())
+                    && reservationEndDateTime.after(existingReservation.getReservationStartDateTime())) {
+                return false; // Table is already reserved during the requested time period
+            }
+        }
+
+        return true; // Table is available
     }
     public List<Reservation> getReservation(){
         return reservationRepository.findAll();
@@ -64,14 +102,14 @@ public class ReservationService {
             return null;
         }
     }
-    public List<Reservation> getReservationsByTableNumber(int tableNumber) {
-        return reservationRepository.findByTableNumber(tableNumber);
-    }
-    public List<Reservation> getReservationsByTimeRange(LocalDateTime startTime, LocalDateTime endTime) {
+
+    public List<Reservation> getReservationsByTimeRange(Date startTime, Date endTime) {
         return reservationRepository.findByReservationDateTimeBetween(startTime, endTime);
     }
 
     public List<Reservation> getReservationsByCustomerName(String customerName) {
         return reservationRepository.findReservationsByCustomerNameContaining(customerName);
     }
+
+
 }
