@@ -1,9 +1,11 @@
 package com.gustofusion.gestionmenu.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.*;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.List;
 
 
 @Entity
@@ -24,7 +26,11 @@ public class MenuItem implements Serializable {
     private String description;
     private double price;
 
-    @ManyToOne
-    @JoinColumn(name = "menu_id")
-    private Menu menu;
+    @JsonIgnoreProperties("menuItems")
+    @ManyToOne(cascade = CascadeType.ALL)
+    Category category;
+
+    @JsonIgnoreProperties("menuItems")
+    @ManyToMany(mappedBy = "menuItems",cascade = CascadeType.ALL)
+    private List<Menu> menus;
 }

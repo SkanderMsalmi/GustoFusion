@@ -1,5 +1,6 @@
 package com.gustofusion.gestionmenu.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.*;
 
 import javax.persistence.*;
@@ -22,6 +23,8 @@ public class Category implements Serializable {
 
     private String name;
 
+
+    @JsonIgnoreProperties("category")
     @OneToMany(mappedBy = "category", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<MenuItem> menuItems;
 }
