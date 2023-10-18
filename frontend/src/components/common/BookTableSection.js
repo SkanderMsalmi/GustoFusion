@@ -57,10 +57,11 @@ function BookTableSection() {
             </div>
             <div className="col-lg-4 col-md-6 form-group mt-3">
               <input
-                type="text"
+                type="date"
                 name="date"
                 className="form-control"
                 id="date"
+                style={{ color: "#918c82" }}
                 placeholder="Date"
                 data-rule="minlen:4"
                 data-msg="Please enter at least 4 chars"
@@ -69,11 +70,11 @@ function BookTableSection() {
             </div>
             <div className="col-lg-4 col-md-6 form-group mt-3">
               <input
-                type="text"
+                type="time"
                 className="form-control"
+                style={{ color: "#918c82" }}
                 name="time"
                 id="time"
-                placeholder="Time"
                 data-rule="minlen:4"
                 data-msg="Please enter at least 4 chars"
               />
