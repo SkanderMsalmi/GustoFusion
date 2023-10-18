@@ -45,36 +45,10 @@ function Header() {
                   Home
                 </Link>
               </li>
-              <li>
-                <a className="nav-link scrollto" href="#about">
-                  About
-                </a>
-              </li>
-              <li>
-                <a className="nav-link scrollto" href="#menu">
-                  Menu
-                </a>
-              </li>
-              <li>
-                <a className="nav-link scrollto" href="#specials">
-                  Specials
-                </a>
-              </li>
-
-              <li>
-                <a className="nav-link scrollto" href="#chefs">
-                  Chefs
-                </a>
-              </li>
-              <li>
-                <a className="nav-link scrollto" href="#gallery">
-                  Gallery
-                </a>
-              </li>
 
               <li>
                 <a className="nav-link scrollto" href="#contact">
-                  Contact
+                  Feebacks
                 </a>
               </li>
             </ul>
@@ -83,10 +57,16 @@ function Header() {
           {/* .navbar */}
           <div className="d-flex">
             <Link
-              to={"/reservation"}
+              to={"/login"}
               className="book-a-table-btn scrollto d-none d-lg-flex"
             >
-              Book A Table
+              Login
+            </Link>
+            <Link
+              to={"/register"}
+              className="book-a-table-btn scrollto d-none d-lg-flex"
+            >
+              Register
             </Link>
           </div>
         </div>

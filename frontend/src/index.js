@@ -5,10 +5,13 @@ import reportWebVitals from "./reportWebVitals";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import AdminLayout from "./components/layouts/AdminLayout";
 import ClientLayout from "./components/layouts/ClientLayout";
+import CollaboratorLayout from "./components/layouts/CollaboratorLayout";
 import Home from "./pages/Home";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
 import BookTableSection from "./components/common/BookTableSection";
+import ListReservation from "./components/common/Personel/Reservations/ListReservation";
+import ListTable from "./components/common/Client/ListTable";
 const router = createBrowserRouter([
   {
     path: "/admin",
@@ -40,6 +43,20 @@ const router = createBrowserRouter([
       {
         path: "reservation",
         element: <BookTableSection />,
+      },
+      {
+        path: "table",
+        element: <ListTable />,
+      },
+    ],
+  },
+  {
+    path: "collaborator",
+    element: <CollaboratorLayout />,
+    children: [
+      {
+        path: "reservations",
+        element: <ListReservation />,
       },
     ],
   },
