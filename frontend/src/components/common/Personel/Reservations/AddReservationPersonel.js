@@ -1,13 +1,13 @@
 /* eslint-disable jsx-a11y/no-redundant-roles */
 import React from "react";
 
-function BookTableSection() {
+function AddReservationPersonel() {
   return (
     <section id="book-a-table" className="book-a-table main-div">
       <div className="container" data-aos="fade-up">
         <div className="section-title">
           <h2>Reservation</h2>
-          <p>Book a Table</p>
+          <p>Add Reservation</p>
         </div>
 
         <form
@@ -25,37 +25,26 @@ function BookTableSection() {
                 name="name"
                 className="form-control"
                 id="name"
-                placeholder="Your Name"
+                placeholder=" Name Client"
                 data-rule="minlen:4"
                 data-msg="Please enter at least 4 chars"
               />
               <div className="validate" />
             </div>
-            <div className="col-lg-4 col-md-6 form-group mt-3 mt-md-0">
-              <input
-                type="email"
-                className="form-control"
-                name="email"
-                id="email"
-                placeholder="Your Email"
-                data-rule="email"
-                data-msg="Please enter a valid email"
-              />
-              <div className="validate" />
-            </div>
+
             <div className="col-lg-4 col-md-6 form-group mt-3 mt-md-0">
               <input
                 type="text"
                 className="form-control"
                 name="phone"
                 id="phone"
-                placeholder="Your Phone"
+                placeholder="Phone Client"
                 data-rule="minlen:4"
                 data-msg="Please enter at least 4 chars"
               />
               <div className="validate" />
             </div>
-            <div className="col-lg-4 col-md-6 form-group mt-3">
+            <div className="col-lg-4 col-md-6 form-group mt-3 mt-md-0">
               <input
                 type="text"
                 name="date"
@@ -95,9 +84,9 @@ function BookTableSection() {
           <div className="form-group mt-3">
             <textarea
               className="form-control"
-              name="message"
+              name="note"
               rows={5}
-              placeholder="Message"
+              placeholder="Note"
               defaultValue={""}
             />
             <div className="validate" />
@@ -111,7 +100,7 @@ function BookTableSection() {
             </div>
           </div>
           <div className="text-center">
-            <button type="submit">Book a Table</button>
+            <button type="submit">Save Reservation</button>
           </div>
         </form>
       </div>
@@ -119,4 +108,4 @@ function BookTableSection() {
   );
 }
 
-export default BookTableSection;
+export default AddReservationPersonel;
