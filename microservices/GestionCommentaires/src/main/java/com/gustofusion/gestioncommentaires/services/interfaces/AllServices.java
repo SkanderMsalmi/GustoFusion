@@ -3,18 +3,17 @@ package com.gustofusion.gestioncommentaires.services.interfaces;
 import java.util.List;
 
 import com.gustofusion.gestioncommentaires.persistance.entities.Comment;
-import com.gustofusion.gestioncommentaires.persistance.entities.Commentator;
 import com.gustofusion.gestioncommentaires.persistance.entities.Reply;
 
 public interface AllServices {
 	
-	public void addCommentAndAssignToUser (Commentator user, Comment content);
+	public void addCommentAndAssignToUser (Comment content);
 	
 	public Comment editComment (Comment content);
 	
 	public void deleteComment (long commentId);
 	
-	public void addReplyAndAssignToUserAndComment (Commentator user, long commentId, Reply content);
+	public void addReplyAndAssignToUserAndComment (long commentId, Reply content);
 	
 	public Reply editReply (Reply content);
 	

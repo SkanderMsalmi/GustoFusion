@@ -14,6 +14,8 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -40,10 +42,13 @@ public class Reply implements Serializable{
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date timestamp;
 	
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne
+	//(fetch = FetchType.LAZY)
 	private Commentator commentator;
 	
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne
+	//(fetch = FetchType.LAZY)
+	@JsonIgnore
 	private Comment comment;
 	
 

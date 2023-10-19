@@ -2,7 +2,8 @@ package com.gustofusion.gestioncommentaires.persistance.entities;
 
 import java.io.Serializable;
 import java.util.Date;
-import java.util.Set;
+import java.util.List;
+//import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -18,6 +19,8 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -53,9 +56,11 @@ public class Comment implements Serializable{
 	private int likes;
 	
 	@OneToMany(mappedBy = "comment" ,cascade = CascadeType.ALL)
-	private Set<Reply> replies;
+	@JsonIgnore
+	private List<Reply> replies;
 	
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne
+	//(fetch = FetchType.LAZY)
 	private Commentator commentator;
 
 }
