@@ -2,12 +2,15 @@ package com.gustofusion.gestionemploye.entities;
 
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.MappedSuperclass;
 
+@MappedSuperclass
 public class Employe {
     private String nom;
     private String prenom;
     private int badge;
     private int salaire;
+
 
     public Employe(String nom, String prenom, int badge, int salaire) {
         this.nom = nom;

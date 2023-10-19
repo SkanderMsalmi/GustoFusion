@@ -1,9 +1,6 @@
 package com.gustofusion.gestionemploye.entities;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
 import java.io.Serializable;
 
 @Entity
@@ -13,6 +10,7 @@ public class SousChef extends Employe implements Serializable {
     @GeneratedValue
     private int id;
 
+    @Enumerated(EnumType.STRING)
     private TypeService typeService;
     @ManyToOne
     private Chef chef;
