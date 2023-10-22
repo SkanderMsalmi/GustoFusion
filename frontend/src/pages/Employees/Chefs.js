@@ -60,8 +60,10 @@ function Chefs() {
             onChange={(event) => setSearchTerm(event.target.value)}
           />
           <i class="fa-solid fa-magnifying-glass fa-xl mx-2"></i>
-          <i class="fa-solid fa-filter fa-xl mx-2" ></i>
-          <div className="validate" />
+          <i class="fa-solid fa-filter fa-xl mx-2" style={{cursor:"pointer", color: "black"}} 
+                onMouseOver={(event) => event.target.style.color = "rgb(205, 164, 94)"}
+                onMouseOut={(event) => event.target.style.color = "black"}
+                onClick={()=>setSearchTerm("")}></i>          <div className="validate" />
         </div>
       </div>
  
