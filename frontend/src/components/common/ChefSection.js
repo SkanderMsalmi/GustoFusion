@@ -1,6 +1,20 @@
-import React from "react";
+import axios from "axios";
+import React, { useEffect, useState } from "react";
 
 function ChefSection() {
+  const [chefs, setChefs] = useState([]);
+
+  useEffect(() => {
+    axios.get("http://localhost:8083/api/chef")
+      .then(response => {
+        setChefs(response.data);
+      })
+      .catch(error => {
+        console.log(error);
+      });
+      
+  }, []);
+
   return (
     <div>
       <div>
@@ -8,102 +22,41 @@ function ChefSection() {
           <div className="container" data-aos="fade-up">
             <div className="section-title">
               <h2>Chefs</h2>
-              <p>Our Proffesional Chefs</p>
+              <p>Our Professional Chefs</p>
             </div>
-            <div className="row">
-              <div className="col-lg-4 col-md-6">
-                <div className="member" data-aos="zoom-in" data-aos-delay={100}>
-                  <img
-                    src="assets/img/chefs/chefs-1.jpg"
-                    className="img-fluid"
-                    alt="chef-1"
-                  />
-                  <div className="member-info">
-                    <div className="member-info-content">
-                      <h4>Walter White</h4>
-                      <span>Master Chef</span>
-                    </div>
-                    <div className="social">
-                      <a href>
-                        <i className="bi bi-twitter" />
-                      </a>
-                      <a href>
-                        <i className="bi bi-facebook" />
-                      </a>
-                      <a href>
-                        <i className="bi bi-instagram" />
-                      </a>
-                      <a href>
-                        <i className="bi bi-linkedin" />
-                      </a>
+            {chefs.length > 0 ? (
+              <div className="row">
+                {chefs.slice(0, 3).map((chef,index) => (
+                  <div className="col-lg-4 col-md-6" key={chef.id}>
+                    <div className="member" data-aos="zoom-in" data-aos-delay={100 * index}>
+                      <img
+                        src={`assets/img/chefs/chefs-${index+1}.jpg`}
+                        className="img-fluid"
+                        alt={`chef-${chef.id}`}
+                      />
+                      <div className="member-info">
+                        <div className="member-info-content">
+                          <h4>{chef.nom.split(' ').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ') + " " + chef.prenom.split(' ').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ')}</h4>
+                          <span>{chef.specialite.split(' ').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ')}</span>
+                        </div>
+                      </div>
                     </div>
                   </div>
-                </div>
+                ))}
               </div>
-              <div className="col-lg-4 col-md-6">
-                <div className="member" data-aos="zoom-in" data-aos-delay={200}>
-                  <img
-                    src="assets/img/chefs/chefs-2.jpg"
-                    className="img-fluid"
-                    alt="chef-2"
-                  />
-                  <div className="member-info">
-                    <div className="member-info-content">
-                      <h4>Sarah Jhonson</h4>
-                      <span>Patissier</span>
-                    </div>
-                    <div className="social">
-                      <a href>
-                        <i className="bi bi-twitter" />
-                      </a>
-                      <a href>
-                        <i className="bi bi-facebook" />
-                      </a>
-                      <a href>
-                        <i className="bi bi-instagram" />
-                      </a>
-                      <a href>
-                        <i className="bi bi-linkedin" />
-                      </a>
-                    </div>
-                  </div>
-                </div>
+            ) : (
+              <div className="row justify-content-center">
+                <h3>Coming Soon...</h3>
               </div>
-              <div className="col-lg-4 col-md-6">
-                <div className="member" data-aos="zoom-in" data-aos-delay={300}>
-                  <img
-                    src="assets/img/chefs/chefs-3.jpg"
-                    className="img-fluid"
-                    alt="chef-3"
-                  />
-                  <div className="member-info">
-                    <div className="member-info-content">
-                      <h4>William Anderson</h4>
-                      <span>Cook</span>
-                    </div>
-                    <div className="social">
-                      <a href>
-                        <i className="bi bi-twitter" />
-                      </a>
-                      <a href>
-                        <i className="bi bi-facebook" />
-                      </a>
-                      <a href>
-                        <i className="bi bi-instagram" />
-                      </a>
-                      <a href>
-                        <i className="bi bi-linkedin" />
-                      </a>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
+            )}
           </div>
         </section>
       </div>
     </div>
   );
 }
+
+  
+  
 
 export default ChefSection;
