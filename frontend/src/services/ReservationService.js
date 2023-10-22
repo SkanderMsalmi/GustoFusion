@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const RESERVATION_API_BASE_URL =
-  "http://localhost:8082/api/reservation/reservation";
+  "http://localhost:8088/api/reservation/reservation";
 
 class ReservationServices {
   getReservations() {

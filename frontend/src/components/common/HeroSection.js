@@ -35,9 +35,7 @@ function HeroSection() {
               <a
                 href="https://www.youtube.com/watch?v=GlrxcuEDyF8"
                 className="glightbox play-btn"
-              >
-                Youtube
-              </a>
+              ></a>
             </div>
           </div>
         </div>
