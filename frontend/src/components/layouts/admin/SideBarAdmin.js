@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 function SideBarAdmin() {
   return (
@@ -12,6 +13,28 @@ function SideBarAdmin() {
           <a className="nav-link text-dark " data-bs-toggle="tab" href="#tab-2">
             Clients
           </a>
+        </li>
+        <li className="nav-item text-dark">
+          <span className="nav-link text-dark " data-bs-toggle="tab" href="#tab-2">
+            Employés
+          </span>
+        <ul className="nav  flex-column "style={{marginLeft:"1rem"}}>
+        <li className="nav-item text-dark">
+          <Link to="/admin/employees/chefs" className="nav-link text-dark ">
+            Chefs
+          </Link>
+        </li>
+        <li className="nav-item text-dark">
+        <Link to="/admin/employees/sousChefs"  className="nav-link text-dark "  >
+            Sous-Chefs
+          </Link>
+        </li>
+        <li className="nav-item text-dark">
+        <Link to="/admin/employees/livreurs"  className="nav-link text-dark " >
+            Livreurs
+          </Link>
+        </li>
+        </ul>
         </li>
         <li className="nav-item">
           <a className="nav-link text-dark" data-bs-toggle="tab" href="#tab-2">

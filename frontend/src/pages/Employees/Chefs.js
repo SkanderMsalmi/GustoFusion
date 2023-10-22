@@ -1,19 +1,26 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
+import { useParams } from 'react-router';
 
 function Chefs() {
   const [chefs, setChefs] = useState([]);
-
+  const [searchTerm, setSearchTerm] = useState("");
+  const params= useParams()
+  
   useEffect(() => {
     axios.get("http://localhost:8083/api/chef")
       .then(response => {
         setChefs(response.data);
+        console.log(params.search)
+        if (params.search) {
+          setSearchTerm(params.search);
+        }
       })
       .catch(error => {
         console.log(error);
       });
-      
+    
   }, []);
 
   useEffect(() => {
@@ -30,10 +37,14 @@ function Chefs() {
         console.log(error);
       });
   }
+  const filteredChefs = chefs.filter((chef) =>
+  chef.nom.toLowerCase().includes(searchTerm.toLowerCase()) ||
+  chef.prenom.toLowerCase().includes(searchTerm.toLowerCase())
+);
   return (
     <div className="container">
-        <div className="d-flex justify-content-between align-items-baseline">
-        <div className="d-flex justify-content-between align-items-center">
+        <div className="d-flex justify-content-between align-items-baseline align-items-center">
+
       <div>
         <h1 style={{color: "black"}}>Chefs</h1>
       </div>
@@ -45,15 +56,14 @@ function Chefs() {
             name="search"
             id="search"
             placeholder="Search"
-            data-rule="search"
-            data-msg="Please enter a valid search"
+            value={searchTerm}
+            onChange={(event) => setSearchTerm(event.target.value)}
           />
           <i class="fa-solid fa-magnifying-glass fa-xl mx-2"></i>
           <i class="fa-solid fa-filter fa-xl mx-2" ></i>
           <div className="validate" />
         </div>
       </div>
-    </div>
  
 
     <Link to="create">
@@ -74,7 +84,7 @@ function Chefs() {
   </tr>
 </thead>
 <tbody>
-{chefs.map(chef => (
+{filteredChefs.map(chef => (
             <tr key={chef.id}>
               <td>{chef.badge}</td>
               <td>{chef.prenom}</td>

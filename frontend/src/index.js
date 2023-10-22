@@ -29,7 +29,7 @@ const router = createBrowserRouter([
         element: <h1>Hello Admin</h1>,
       },
       {
-        path: "employees/chefs",
+        path: "employees/chefs/:search?",
         element: <Chefs />,
       },
       {
