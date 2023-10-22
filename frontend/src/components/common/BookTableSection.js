@@ -1,7 +1,45 @@
 /* eslint-disable jsx-a11y/no-redundant-roles */
-import React from "react";
+import axios from "axios";
+import React, { useState } from "react";
 
 function BookTableSection() {
+  const [formData, setFormData] = useState({
+    reservationStartDateTime: "",
+    reservationEndDateTime: "",
+    status: "PENDING",
+    customerName: "",
+    contactInformation: "",
+    specialRequests: "",
+    tableId: 1,
+  });
+
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setFormData({
+      ...formData,
+      [name]: value,
+    });
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    const response = axios.post(
+      "http://localhost:8082/api/reservation/reservation/1/reservations",
+      JSON.stringify(formData),
+      {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
+
+    if ((await response).status === 201) {
+      console.log("succes");
+    } else {
+      console.log("error");
+    }
+  };
   return (
     <section id="book-a-table" className="book-a-table main-div">
       <div className="container" data-aos="fade-up">
@@ -10,21 +48,16 @@ function BookTableSection() {
           <p>Book a Table</p>
         </div>
 
-        <form
-          action="forms/book-a-table.php"
-          method="post"
-          role="form"
-          className="php-email-form"
-          data-aos="fade-up"
-          data-aos-delay={100}
-        >
+        <form role="form" className="php-email-form" onSubmit={handleSubmit}>
           <div className="row">
             <div className="col-lg-4 col-md-6 form-group">
               <input
                 type="text"
-                name="name"
+                name="customerName"
                 className="form-control"
-                id="name"
+                id="customerName"
+                value={formData.customerName}
+                onChange={handleInputChange}
                 placeholder="Your Name"
                 data-rule="minlen:4"
                 data-msg="Please enter at least 4 chars"
@@ -35,8 +68,10 @@ function BookTableSection() {
               <input
                 type="email"
                 className="form-control"
-                name="email"
                 id="email"
+                name="email"
+                value={formData.email}
+                onChange={handleInputChange}
                 placeholder="Your Email"
                 data-rule="email"
                 data-msg="Please enter a valid email"
@@ -45,10 +80,12 @@ function BookTableSection() {
             </div>
             <div className="col-lg-4 col-md-6 form-group mt-3 mt-md-0">
               <input
-                type="text"
+                type="tel"
                 className="form-control"
-                name="phone"
                 id="phone"
+                name="phone"
+                value={formData.phone}
+                onChange={handleInputChange}
                 placeholder="Your Phone"
                 data-rule="minlen:4"
                 data-msg="Please enter at least 4 chars"
@@ -57,10 +94,12 @@ function BookTableSection() {
             </div>
             <div className="col-lg-4 col-md-6 form-group mt-3">
               <input
-                type="date"
-                name="date"
+                type="datetime-local"
                 className="form-control"
-                id="date"
+                id="reservationStartDateTime"
+                name="reservationStartDateTime"
+                value={formData.reservationStartDateTime}
+                onChange={handleInputChange}
                 style={{ color: "#918c82" }}
                 placeholder="Date"
                 data-rule="minlen:4"
@@ -70,16 +109,19 @@ function BookTableSection() {
             </div>
             <div className="col-lg-4 col-md-6 form-group mt-3">
               <input
-                type="time"
+                type="datetime-local"
                 className="form-control"
                 style={{ color: "#918c82" }}
-                name="time"
-                id="time"
+                id="reservationEndDateTime"
+                name="reservationEndDateTime"
+                value={formData.reservationEndDateTime}
+                onChange={handleInputChange}
                 data-rule="minlen:4"
                 data-msg="Please enter at least 4 chars"
               />
               <div className="validate" />
             </div>
+
             <div className="col-lg-4 col-md-6 form-group mt-3">
               <input
                 type="number"
@@ -96,9 +138,12 @@ function BookTableSection() {
           <div className="form-group mt-3">
             <textarea
               className="form-control"
-              name="message"
+              id="specialRequests"
+              name="specialRequests"
+              value={formData.specialRequests}
+              onChange={handleInputChange}
               rows={5}
-              placeholder="Message"
+              placeholder="Any Special Requests"
               defaultValue={""}
             />
             <div className="validate" />

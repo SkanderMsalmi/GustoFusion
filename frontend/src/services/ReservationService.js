@@ -11,6 +11,14 @@ class ReservationServices {
       },
     });
   }
+
+  setReservation() {
+    return axios.post(RESERVATION_API_BASE_URL, {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+  }
 }
 const ReservationService = new ReservationServices();
 export default ReservationService;

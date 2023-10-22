@@ -70,6 +70,18 @@ function AddReservationPersonel() {
             </div>
             <div className="col-lg-4 col-md-6 form-group mt-3">
               <input
+                type="text"
+                className="form-control"
+                name="time"
+                id="time"
+                placeholder="Time"
+                data-rule="minlen:4"
+                data-msg="Please enter at least 4 chars"
+              />
+              <div className="validate" />
+            </div>
+            <div className="col-lg-4 col-md-6 form-group mt-3">
+              <input
                 type="number"
                 className="form-control"
                 name="people"
