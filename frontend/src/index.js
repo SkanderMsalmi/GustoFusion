@@ -13,6 +13,15 @@ import BookTableSection from "./components/common/BookTableSection";
 import ListReservation from "./components/common/Personel/Reservations/ListReservation";
 import ListTable from "./components/common/Client/ListTable";
 import CartPage from "./pages/CartPage";
+import Chefs from "./pages/Employees/Chefs";
+import CreateChef from "./pages/Employees/CreateChef";
+import UpdateChef from "./pages/Employees/UpdateChef";
+import Livreurs from "./pages/Employees/Livreurs";
+import CreateLivreur from "./pages/Employees/CreateLivreur";
+import UpdateLivreur from "./pages/Employees/UpdateLivreur";
+import SousChefs from "./pages/Employees/SousChefs";
+import CreateSousChef from "./pages/Employees/CreateSousChef";
+import UpdateSousChef from "./pages/Employees/UpdateSousChef";
 const router = createBrowserRouter([
   {
     path: "/admin",
@@ -22,6 +31,42 @@ const router = createBrowserRouter([
       {
         path: "team",
         element: <h1>Hello Admin</h1>,
+      },
+      {
+        path: "employees/chefs",
+        element: <Chefs />,
+      },
+      {
+        path: "employees/chefs/create",
+        element: <CreateChef />,
+      },
+      {
+        path: "employees/chefs/edit/:id",
+        element: <UpdateChef />,
+      },
+      {
+        path: "employees/livreurs",
+        element: <Livreurs />,
+      },
+      {
+        path: "employees/livreurs/create",
+        element: <CreateLivreur />,
+      },
+      {
+        path: "employees/livreurs/edit/:id",
+        element: <UpdateLivreur />,
+      },
+      {
+        path: "employees/sousChefs",
+        element: <SousChefs />,
+      },
+      {
+        path: "employees/sousChefs/create",
+        element: <CreateSousChef />,
+      },
+      {
+        path: "employees/sousChefs/edit/:id",
+        element: <UpdateSousChef />,
       },
     ],
   },
