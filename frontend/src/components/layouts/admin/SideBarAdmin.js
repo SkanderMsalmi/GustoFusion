@@ -31,7 +31,7 @@ function SideBarAdmin() {
         </li>
         <li className="nav-item text-dark">
         <Link to="/admin/employees/livreurs"  className="nav-link text-dark " >
-            Livreurs
+            Delivery men
           </Link>
         </li>
         </ul>
