@@ -25,7 +25,7 @@ function BookTableSection() {
     e.preventDefault();
 
     const response = axios.post(
-      "http://localhost:8082/api/reservation/reservation/1/reservations",
+      "http://localhost:8088/api/reservation/reservation/1/reservations",
       JSON.stringify(formData),
       {
         headers: {
