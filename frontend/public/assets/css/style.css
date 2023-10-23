@@ -13,7 +13,132 @@ body {
   background: #0c0b09;
   color: #fff;
 }
+.dialogHolder{
+  
+  position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    /* background: aquamarine; */
+    z-index: 999;
+    backdrop-filter: blur(4px);
+}
+.dialogHolder .dialog{
+      display: flex; 
+    justify-content: center; 
+     height: 100%; 
+    align-items: center; 
+    height: 100%;
+}
+.dialogHolder .dialog .orderHolder{
+  background: #262523;
+  width: 60%;
+ 
+  border-radius: 5px;
+  box-shadow: 6px 6px 8px 0px #cac8c84f;
+}
+.dialogHolder .dialog .orderHolder .topHeader{
+  display: flex;
+  justify-content: space-between;
+  padding: 5px;
+  border-bottom: 1px solid #7b77777a;
+  display: flex;
+  align-items: center;
 
+}
+.dialogHolder  .dialog .orderHolder .topHeader .title{
+padding-left: 10px;
+font-size: 24px;
+}
+
+.dialogHolder .dialog .orderHolder .topHeader .singleItem{
+
+  font-size: 25px;
+  color: #fff;
+  width: 35px;
+  height: 35px;
+  
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+}
+
+.dialogHolder .dialog .orderHolder .topHeader .singleItem:hover{
+
+  border-radius: 50%;
+  background: #c6c9cb61;
+  cursor: pointer;
+
+}
+.dialogHolder .dialog .orderHolder  .orderForm{
+  /* display: flex;
+  align-items: center;
+  height: 100%;
+  justify-content: center;
+  padding: 30px; */
+
+  padding: 15px 0;
+  
+}
+
+.dialogHolder .dialog .orderHolder  .orderForm .inputStyle{
+  background: none;
+  border: 1px solid #625b4b;
+  margin-bottom: 14px;
+  color: #fff;
+
+}
+.dialogHolder .dialog .orderHolder  .orderForm .btnHolder{
+  display: flex;
+  justify-content: center;
+  margin-top: 30px;
+}
+.dialogHolder .dialog .orderHolder  .orderForm .submitButton {
+ 
+   
+  background-color: gold;
+  color: black;
+  padding: 10px 40px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: bold;
+
+}
+
+.dialogHolder .dialog .orderHolder  .orderForm .submitButton:hover {
+  background-color: rgb(130, 97, 14);
+}
+
+
+.tableCart-container {
+  position: relative;
+  max-width: 1200px; 
+  margin: 0 auto; 
+}
+.cart-container {
+  position: absolute;
+  top: 0;
+  right: 150px; 
+}
+.golden-button {
+  position: absolute;
+  bottom: -60px; /* Adjust the distance from the bottom as needed */
+  right: 0px; /* Adjust the distance from the right as needed */
+  background-color: gold;
+  color: black;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.golden-button:hover {
+  background-color: rgb(130, 97, 14);
+}
 a {
   color: #cda45e;
   text-decoration: none;
