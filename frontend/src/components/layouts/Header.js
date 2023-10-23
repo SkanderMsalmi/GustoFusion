@@ -1,6 +1,7 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React from "react";
 
+
 function Header() {
   return (
     <>
@@ -15,6 +16,15 @@ function Header() {
                 <span> Mon-Sat: 11AM - 23PM</span>
               </i>
             </div>
+                    {/* ***********cart************* */}
+            <a href="/cart">
+            <div  className='cart-container'  >
+                <i className="bi bi-cart" style={{fontSize:"30px"}}></i>
+								<span className=" translate-middle badge rounded-circle bg-white text-dark">2</span>
+						</div>
+            </a>
+                      {/* ***********!cart************** */}
+
             <div className="languages d-none d-md-flex align-items-center">
               <ul>
                 <li>En</li>
