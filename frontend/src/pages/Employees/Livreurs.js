@@ -8,67 +8,85 @@ function Livreurs() {
   const [disponibliteFilter, setDisponibliteFilter] = useState(false);
 
   useEffect(() => {
-    axios.get("http://localhost:8083/api/livreur")
-      .then(response => {
+    axios
+      .get("http://localhost:8088/api/employe/api/livreur")
+      .then((response) => {
         setLivreurs(response.data);
       })
-      .catch(error => {
+      .catch((error) => {
         console.log(error);
       });
   }, []);
 
   const handleDelete = (id) => {
-    axios.delete(`http://localhost:8083/api/livreur/${id}`)
-      .then(response => {
+    axios
+      .delete(`http://localhost:8088/api/employe/api/livreur/${id}`)
+      .then((response) => {
         console.log(response.data);
         // Update the state to remove the deleted livreur
-        setLivreurs(livreurs.filter(livreur => livreur.id !== id));
+        setLivreurs(livreurs.filter((livreur) => livreur.id !== id));
       })
-      .catch(error => {
+      .catch((error) => {
         console.log(error);
       });
-  }
-  const filteredLivreurs = livreurs.filter((livreur) =>
-  (livreur.nom.toLowerCase().includes(searchTerm.toLowerCase()) ||
-  livreur.prenom.toLowerCase().includes(searchTerm.toLowerCase())) &&
-    (!disponibliteFilter || livreur.disponiblite)
+  };
+  const filteredLivreurs = livreurs.filter(
+    (livreur) =>
+      (livreur.nom.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        livreur.prenom.toLowerCase().includes(searchTerm.toLowerCase())) &&
+      (!disponibliteFilter || livreur.disponiblite)
   );
   return (
     <div className="container">
       <div className="d-flex justify-content-between align-items-baseline align-items-center">
-          <div>
-            <h1 style={{color: "black"}}>Delivery men</h1>
-          </div>
-          <div>
-            <div className=" form-group  d-flex align-items-center" style={{color: "black"}}>
-              <input
-                type="search"
-                className="form-control"
-                name="search"
-                id="search"
-                placeholder="Search"
-                value={searchTerm}
-                onChange={(event) => setSearchTerm(event.target.value)}
-              />
-              <i class="fa-solid fa-magnifying-glass fa-xl mx-2"></i>
-              <div className="form-check mx-2">
+        <div>
+          <h1 style={{ color: "black" }}>Delivery men</h1>
+        </div>
+        <div>
+          <div
+            className=" form-group  d-flex align-items-center"
+            style={{ color: "black" }}
+          >
             <input
-              type="checkbox"
-              className="form-check-input"
-              name="disponiblite"
-              id="disponiblite"
-              checked={disponibliteFilter}
-              onChange={(event) => setDisponibliteFilter(event.target.checked)}
+              type="search"
+              className="form-control"
+              name="search"
+              id="search"
+              placeholder="Search"
+              value={searchTerm}
+              onChange={(event) => setSearchTerm(event.target.value)}
             />
-            <label className="form-check-label" htmlFor="disponiblite">Available</label>
-          </div>
-              <i class="fa-solid fa-filter fa-xl mx-2" style={{cursor:"pointer", color: "black"}} 
-                onMouseOver={(event) => event.target.style.color = "rgb(205, 164, 94)"}
-                onMouseOut={(event) => event.target.style.color = "black"}
-                onClick={()=>{setSearchTerm(""); setDisponibliteFilter(false)}}></i>              <div className="validate" />
+            <i class="fa-solid fa-magnifying-glass fa-xl mx-2"></i>
+            <div className="form-check mx-2">
+              <input
+                type="checkbox"
+                className="form-check-input"
+                name="disponiblite"
+                id="disponiblite"
+                checked={disponibliteFilter}
+                onChange={(event) =>
+                  setDisponibliteFilter(event.target.checked)
+                }
+              />
+              <label className="form-check-label" htmlFor="disponiblite">
+                Available
+              </label>
             </div>
+            <i
+              class="fa-solid fa-filter fa-xl mx-2"
+              style={{ cursor: "pointer", color: "black" }}
+              onMouseOver={(event) =>
+                (event.target.style.color = "rgb(205, 164, 94)")
+              }
+              onMouseOut={(event) => (event.target.style.color = "black")}
+              onClick={() => {
+                setSearchTerm("");
+                setDisponibliteFilter(false);
+              }}
+            ></i>{" "}
+            <div className="validate" />
           </div>
-        
+        </div>
 
         <Link to="create">
           <button className="btn btn-success mb-3 float-right">
@@ -90,17 +108,30 @@ function Livreurs() {
           </tr>
         </thead>
         <tbody>
-          {filteredLivreurs.map(livreur => (
+          {filteredLivreurs.map((livreur) => (
             <tr key={livreur.id}>
               <td>{livreur.badge}</td>
               <td>{livreur.prenom}</td>
               <td>{livreur.nom}</td>
               <td>{livreur.salaire}</td>
-              <td>{livreur.disponiblite ? <span style={{color: "green"}}>Available</span> : <span style={{color: "red"}}>Unavailable</span>}</td>
+              <td>
+                {livreur.disponiblite ? (
+                  <span style={{ color: "green" }}>Available</span>
+                ) : (
+                  <span style={{ color: "red" }}>Unavailable</span>
+                )}
+              </td>
               <td>{livreur.numTel}</td>
               <td>
-                <Link to={"edit/"+livreur.id}><button className="btn btn-primary mr-2">Edit</button></Link>
-                <button onClick={() => handleDelete(livreur.id)} className="btn btn-danger">Delete</button>
+                <Link to={"edit/" + livreur.id}>
+                  <button className="btn btn-primary mr-2">Edit</button>
+                </Link>
+                <button
+                  onClick={() => handleDelete(livreur.id)}
+                  className="btn btn-danger"
+                >
+                  Delete
+                </button>
               </td>
             </tr>
           ))}

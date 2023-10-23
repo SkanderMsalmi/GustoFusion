@@ -47,9 +47,9 @@ function SideBarAdmin() {
           </ul>
         </li>
         <li className="nav-item">
-          <a className="nav-link text-dark" data-bs-toggle="tab" href="#tab-2">
+          <Link to="/admin/reservation" className="nav-link text-dark">
             Reservations
-          </a>
+          </Link>
         </li>
         <li className="nav-item">
           <a className="nav-link text-dark" data-bs-toggle="tab" href="#tab-3">

@@ -36,6 +36,7 @@ function BookTableSection() {
 
     if ((await response).status === 201) {
       console.log("succes");
+      window.location.href = "/";
     } else {
       console.log("error");
     }

@@ -1,43 +1,48 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
+import { useParams } from "react-router";
 
-function SousChefs() {
-  const [sousChefs, setSousChefs] = useState([]);
+function Reservations() {
+  const [reservations, setReservations] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
+
   useEffect(() => {
     axios
-      .get("http://localhost:8088/api/employe/api/sous-chef")
+      .get("http://localhost:8088/api/reservation/reservation")
       .then((response) => {
-        setSousChefs(response.data);
+        setReservations(response.data);
       })
       .catch((error) => {
         console.log(error);
       });
   }, []);
 
+  useEffect(() => {
+    console.log(reservations);
+  }, [reservations]);
   const handleDelete = (id) => {
     axios
-      .delete(`http://localhost:8088/api/employe/api/sous-chef/${id}`)
+      .delete(`http://localhost:8088/api/reservation/reservation/${id}`)
       .then((response) => {
         console.log(response.data);
-        // Update the state to remove the deleted sous chef
-        setSousChefs(sousChefs.filter((sousChef) => sousChef.id !== id));
+        // Update the state to remove the deleted reservation
+        setReservations(
+          reservations.filter((reservation) => reservation.id !== id)
+        );
       })
       .catch((error) => {
         console.log(error);
       });
   };
-  const filteredSousChefs = sousChefs.filter(
-    (sousChef) =>
-      sousChef.nom.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      sousChef.prenom.toLowerCase().includes(searchTerm.toLowerCase())
+  const filteredReservations = reservations.filter((reservation) =>
+    reservation.customerName.toLowerCase().includes(searchTerm.toLowerCase())
   );
   return (
     <div className="container">
       <div className="d-flex justify-content-between align-items-baseline align-items-center">
         <div>
-          <h1 style={{ color: "black" }}>Sous Chefs</h1>
+          <h1 style={{ color: "black" }}>Reservations</h1>
         </div>
         <div>
           <div
@@ -62,7 +67,7 @@ function SousChefs() {
               }
               onMouseOut={(event) => (event.target.style.color = "black")}
               onClick={() => setSearchTerm("")}
-            ></i>
+            ></i>{" "}
             <div className="validate" />
           </div>
         </div>
@@ -73,38 +78,31 @@ function SousChefs() {
           </button>
         </Link>
       </div>
-
       <table className="table">
         <thead>
           <tr>
             <th>Badge #</th>
-            <th>First Name</th>
-            <th>Last Name</th>
-            <th>Salary</th>
-            <th>Type of Service</th>
-            <th>Chef</th>
+            <th>customerName</th>
+            <th>reservationStartDateTime</th>
+            <th>reservationEndDateTime</th>
+            <th>status</th>
             <th>Actions</th>
           </tr>
         </thead>
         <tbody>
-          {filteredSousChefs.map((sousChef) => (
-            <tr key={sousChef.id}>
-              <td>{sousChef.badge}</td>
-              <td>{sousChef.prenom}</td>
-              <td>{sousChef.nom}</td>
-              <td>{sousChef.salaire}</td>
-              <td>{sousChef.typeService}</td>
+          {filteredReservations.map((reservation) => (
+            <tr key={reservation.id}>
+              <td>{reservation.id}</td>
+              <td>{reservation.customerName}</td>
+              <td>{reservation.reservationStartDateTime}</td>
+              <td>{reservation.reservationEndDateTime}</td>
+              <td>{reservation.status}</td>
               <td>
-                <Link to={`/admin/employees/chefs/` + sousChef.chef.nom}>
-                  {sousChef.chef.nom}
-                </Link>
-              </td>
-              <td>
-                <Link to={"edit/" + sousChef.id}>
+                <Link to={"edit/" + reservation.id}>
                   <button className="btn btn-primary mr-2">Edit</button>
                 </Link>
                 <button
-                  onClick={() => handleDelete(sousChef.id)}
+                  onClick={() => handleDelete(reservation.id)}
                   className="btn btn-danger"
                 >
                   Delete
@@ -118,4 +116,4 @@ function SousChefs() {
   );
 }
 
-export default SousChefs;
+export default Reservations;

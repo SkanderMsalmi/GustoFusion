@@ -27,6 +27,7 @@ import UpdateSousChef from "./pages/Employees/UpdateSousChef";
 import MenuAdmin from "./components/common/Admin/Menu/MenuAdmin";
 import UpdateMenuAdmin from "./components/common/Admin/Menu/UpdateMenuAdmin";
 import UpdateMenuItem from "./components/common/Admin/Menu/UpdateMenuItem";
+import Reservations from "./pages/Employees/Reservation";
 
 const router = createBrowserRouter([
   {
@@ -85,6 +86,10 @@ const router = createBrowserRouter([
       {
         path: "menu/update-menu/:menuId/:menuId/items/update/:menuItemId",
         element: <UpdateMenuItem />,
+      },
+      {
+        path: "reservation",
+        element: <Reservations />,
       },
     ],
   },
