@@ -8,6 +8,7 @@ class ReservationServices {
     return axios.get(RESERVATION_API_BASE_URL, {
       headers: {
         "Content-Type": "application/json",
+        "Access-Control-Allow-Origin": "*",
       },
     });
   }

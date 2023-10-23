@@ -7,7 +7,6 @@ services:
       - "8761:8761"
     image: erueka
 
-
   gestionreservation:
     build: ./microservices/gestionreservation
     environment:
@@ -49,17 +48,17 @@ services:
     image: "gestion_menu"
     depends_on:
       - discovery
-  gestionlivrasion:
-    build: ./microservices/GestionLivraison
-    environment:
-      - eureka.client.serviceUrl.defaultZone=http://discovery:8761/eureka/
-    ports:
-      - "8085:8085"
-    image: "gestion_livraison"
-    depends_on:
-      - discovery
-      - gestionemploye
-      - gestionmenu
+  # gestionlivrasion:
+  #   build: ./microservices/GestionLivraison
+  #   environment:
+  #     - eureka.client.serviceUrl.defaultZone=http://discovery:8761/eureka/
+  #   ports:
+  #     - "8085:8085"
+  #   image: "gestion_livraison"
+  #   depends_on:
+  #     - discovery
+  #     - gestionemploye
+  #     - gestionmenu
   gestioncommentaires:
     build: ./microservices/GestionCommentaires
     restart: always
@@ -82,12 +81,13 @@ services:
       - MYSQL_ALLOW_EMPTY_PASSWORD=true
     ports:
       - 3308:3306
+  # networks: gestionlivrasion-gestionmenu gestionlivraison-gestionemploye
   # node:
   #       restart: always
   #       build: ./microservices/payment
   #       ports:
   #         - 80:3000
-    
+
   # mongo:
   #     image: mongo
   #     ports:

@@ -13,6 +13,8 @@ import javax.persistence.EntityNotFoundException;
 import java.util.Date;
 
 @RestController
+@CrossOrigin(origins = {"http://localhost:3000", "http://localhost:8088"})
+
 @RequestMapping("/delivery")
 public class DeliveryController {
     @Autowired
