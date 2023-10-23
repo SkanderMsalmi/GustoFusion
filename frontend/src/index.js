@@ -12,6 +12,7 @@ import Register from "./pages/Register";
 import BookTableSection from "./components/common/BookTableSection";
 import ListReservation from "./components/common/Personel/Reservations/ListReservation";
 import ListTable from "./components/common/Client/ListTable";
+import CartPage from "./pages/CartPage";
 const router = createBrowserRouter([
   {
     path: "/admin",
@@ -47,6 +48,10 @@ const router = createBrowserRouter([
       {
         path: "table",
         element: <ListTable />,
+      },
+      {
+        path: "cart",
+        element: <CartPage />,
       },
     ],
   },
