@@ -18,8 +18,7 @@ public class Reservation implements Serializable {
 //    @ManyToOne
 //    private Customer customer;
 
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date reservationDateTime;
+
 
     @Temporal(TemporalType.TIMESTAMP)
     private Date reservationStartDateTime;
@@ -35,19 +34,17 @@ public class Reservation implements Serializable {
     @Column(nullable = true)
     private String customerName;
     @Column(nullable = true)
-    private String contactInformation;
+    private String email;
+    private String phone;
     private String specialRequests;
 
 
 
-    @Column(nullable = true)
-    private double totalPrice;
 
 
 
-    private String confirmationCode;
-    @Column(nullable = true)
-    private String cancellationPolicy;
+
+
 
     @ManyToOne
     @JoinColumn(name = "table_id")

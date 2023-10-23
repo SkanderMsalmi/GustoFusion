@@ -25,11 +25,10 @@ public class ReservationService {
         RestaurantTable table = restaurantTableRepository.findById(tableId).orElse(null);
 
         if (table != null) {
-            Date reservationDateTime = reservation.getReservationDateTime();
             Date reservationStartDateTime = reservation.getReservationStartDateTime();
             Date reservationEndDateTime = reservation.getReservationEndDateTime();
 
-            if (isTableAvailable(table, reservationDateTime, reservationStartDateTime, reservationEndDateTime)) {
+            if (isTableAvailable(table,  reservationStartDateTime, reservationEndDateTime)) {
                 reservation.setTable(table);
                 reservation.setStatus(ReservationStatus.PENDING);
                 Reservation addedReservation = reservationRepository.save(reservation);
@@ -44,23 +43,23 @@ public class ReservationService {
         return new ResponseEntity<>("Table with ID " + tableId + " not found.", HttpStatus.NOT_FOUND);
     }
 
-    private boolean isTableAvailable(RestaurantTable table, Date reservationDateTime, Date reservationStartDateTime, Date reservationEndDateTime) {
+    private boolean isTableAvailable(RestaurantTable table, Date reservationStartDateTime, Date reservationEndDateTime) {
         List<Reservation> existingReservations = reservationRepository.findByTable(table);
-
         for (Reservation existingReservation : existingReservations) {
+
             if (reservationStartDateTime.before(existingReservation.getReservationEndDateTime())
                     && reservationEndDateTime.after(existingReservation.getReservationStartDateTime())) {
-                return false; // Table is already reserved during the requested time period
+                return false;
             }
         }
 
-        return true; // Table is available
+        return true;
     }
     public List<Reservation> getReservation(){
         return reservationRepository.findAll();
     }
     public Reservation getReservationById(Integer id) {
-        // Implement your business logic for retrieving a reservation by ID
+
         return reservationRepository.findById(id).orElse(null);
     }
 
@@ -103,9 +102,7 @@ public class ReservationService {
         }
     }
 
-    public List<Reservation> getReservationsByTimeRange(Date startTime, Date endTime) {
-        return reservationRepository.findByReservationDateTimeBetween(startTime, endTime);
-    }
+
 
     public List<Reservation> getReservationsByCustomerName(String customerName) {
         return reservationRepository.findReservationsByCustomerNameContaining(customerName);

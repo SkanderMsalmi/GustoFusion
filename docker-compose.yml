@@ -2,7 +2,7 @@ version: "2.2"
 services:
 
   discovery:
-    build: ./eurekaserver
+    build: ./microservices/eurekaserver
     ports:
       - "8761:8761"
     image: erueka

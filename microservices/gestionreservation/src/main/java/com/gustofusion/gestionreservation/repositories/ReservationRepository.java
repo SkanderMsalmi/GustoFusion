@@ -14,9 +14,7 @@ import java.util.List;
 @Repository
 public interface ReservationRepository extends JpaRepository<Reservation,Integer> {
     List<Reservation> findByTable(RestaurantTable table);
-    List<Reservation> findByTableAndReservationDateTime(RestaurantTable table, Date reservationDateTime);
 
-    List<Reservation> findByReservationDateTimeBetween(Date startTime, Date endTime);
 
     @Query("SELECT r FROM Reservation r WHERE r.customerName LIKE %:name%")
     List<Reservation> findReservationsByCustomerNameContaining(@Param("name") String name);
