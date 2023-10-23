@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 
 function SousChefs() {
   const [sousChefs, setSousChefs] = useState([]);
-
+  const [searchTerm, setSearchTerm] = useState("");
   useEffect(() => {
     axios.get("http://localhost:8083/api/sous-chef")
       .then(response => {
@@ -16,9 +16,7 @@ function SousChefs() {
       
   }, []);
 
-  useEffect(() => {
-    console.log(sousChefs);
-  }, [sousChefs]);
+
 
   const handleDelete = (id) => {
     axios.delete(`http://localhost:8083/api/sous-chef/${id}`)
@@ -31,11 +29,13 @@ function SousChefs() {
         console.log(error);
       });
   }
-
+  const filteredSousChefs = sousChefs.filter((sousChef) =>
+    sousChef.nom.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    sousChef.prenom.toLowerCase().includes(searchTerm.toLowerCase())
+  );
   return (
     <div className="container">
-      <div className="d-flex justify-content-between align-items-baseline">
-        <div className="d-flex justify-content-between align-items-center">
+      <div className="d-flex justify-content-between align-items-baseline align-items-center">
           <div>
             <h1 style={{color: "black"}}>Sous Chefs</h1>
           </div>
@@ -47,15 +47,17 @@ function SousChefs() {
                 name="search"
                 id="search"
                 placeholder="Search"
-                data-rule="search"
-                data-msg="Please enter a valid search"
+                value={searchTerm}
+              onChange={(event) => setSearchTerm(event.target.value)}
               />
               <i class="fa-solid fa-magnifying-glass fa-xl mx-2"></i>
-              <i class="fa-solid fa-filter fa-xl mx-2" ></i>
-              <div className="validate" />
+                <i class="fa-solid fa-filter fa-xl mx-2" style={{cursor:"pointer", color: "black"}} 
+                onMouseOver={(event) => event.target.style.color = "rgb(205, 164, 94)"}
+                onMouseOut={(event) => event.target.style.color = "black"}
+                onClick={()=>setSearchTerm("")}></i>
+                <div className="validate" />
             </div>
           </div>
-        </div>
 
         <Link to="create">
           <button className="btn btn-success mb-3 float-right">
@@ -77,14 +79,18 @@ function SousChefs() {
           </tr>
         </thead>
         <tbody>
-          {sousChefs.map(sousChef => (
+          {filteredSousChefs.map(sousChef => (
             <tr key={sousChef.id}>
               <td>{sousChef.badge}</td>
               <td>{sousChef.prenom}</td>
               <td>{sousChef.nom}</td>
               <td>{sousChef.salaire}</td>
               <td>{sousChef.typeService}</td>
-              <td>{sousChef.chef.nom}</td>
+              <td>
+                <Link to={`/admin/employees/chefs/`+sousChef.chef.nom}>
+                  {sousChef.chef.nom}
+                </Link>
+              </td>
               <td>
                 <Link to={"edit/"+sousChef.id}><button className="btn btn-primary mr-2">Edit</button></Link>
                 <button onClick={() => handleDelete(sousChef.id)} className="btn btn-danger">Delete</button>

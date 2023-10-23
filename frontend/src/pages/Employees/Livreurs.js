@@ -4,6 +4,8 @@ import { Link } from "react-router-dom";
 
 function Livreurs() {
   const [livreurs, setLivreurs] = useState([]);
+  const [searchTerm, setSearchTerm] = useState("");
+  const [disponibliteFilter, setDisponibliteFilter] = useState(false);
 
   useEffect(() => {
     axios.get("http://localhost:8083/api/livreur")
@@ -26,13 +28,16 @@ function Livreurs() {
         console.log(error);
       });
   }
-
+  const filteredLivreurs = livreurs.filter((livreur) =>
+  (livreur.nom.toLowerCase().includes(searchTerm.toLowerCase()) ||
+  livreur.prenom.toLowerCase().includes(searchTerm.toLowerCase())) &&
+    (!disponibliteFilter || livreur.disponiblite)
+  );
   return (
     <div className="container">
-      <div className="d-flex justify-content-between align-items-baseline">
-        <div className="d-flex justify-content-between align-items-center">
+      <div className="d-flex justify-content-between align-items-baseline align-items-center">
           <div>
-            <h1 style={{color: "black"}}>Livreurs</h1>
+            <h1 style={{color: "black"}}>Delivery men</h1>
           </div>
           <div>
             <div className=" form-group  d-flex align-items-center" style={{color: "black"}}>
@@ -42,15 +47,28 @@ function Livreurs() {
                 name="search"
                 id="search"
                 placeholder="Search"
-                data-rule="search"
-                data-msg="Please enter a valid search"
+                value={searchTerm}
+                onChange={(event) => setSearchTerm(event.target.value)}
               />
               <i class="fa-solid fa-magnifying-glass fa-xl mx-2"></i>
-              <i class="fa-solid fa-filter fa-xl mx-2"></i>
-              <div className="validate" />
+              <div className="form-check mx-2">
+            <input
+              type="checkbox"
+              className="form-check-input"
+              name="disponiblite"
+              id="disponiblite"
+              checked={disponibliteFilter}
+              onChange={(event) => setDisponibliteFilter(event.target.checked)}
+            />
+            <label className="form-check-label" htmlFor="disponiblite">Available</label>
+          </div>
+              <i class="fa-solid fa-filter fa-xl mx-2" style={{cursor:"pointer", color: "black"}} 
+                onMouseOver={(event) => event.target.style.color = "rgb(205, 164, 94)"}
+                onMouseOut={(event) => event.target.style.color = "black"}
+                onClick={()=>{setSearchTerm(""); setDisponibliteFilter(false)}}></i>              <div className="validate" />
             </div>
           </div>
-        </div>
+        
 
         <Link to="create">
           <button className="btn btn-success mb-3 float-right">
@@ -72,7 +90,7 @@ function Livreurs() {
           </tr>
         </thead>
         <tbody>
-          {livreurs.map(livreur => (
+          {filteredLivreurs.map(livreur => (
             <tr key={livreur.id}>
               <td>{livreur.badge}</td>
               <td>{livreur.prenom}</td>
