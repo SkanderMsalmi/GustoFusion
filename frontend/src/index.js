@@ -1,5 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
+import { Router, Route, Link, Switch } from "react-router-dom";
+
 import "./index.css";
 import reportWebVitals from "./reportWebVitals";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
@@ -22,6 +24,10 @@ import UpdateLivreur from "./pages/Employees/UpdateLivreur";
 import SousChefs from "./pages/Employees/SousChefs";
 import CreateSousChef from "./pages/Employees/CreateSousChef";
 import UpdateSousChef from "./pages/Employees/UpdateSousChef";
+import MenuAdmin from "./components/common/Admin/Menu/MenuAdmin";
+import UpdateMenuAdmin from "./components/common/Admin/Menu/UpdateMenuAdmin";
+import UpdateMenuItem from "./components/common/Admin/Menu/UpdateMenuItem";
+
 const router = createBrowserRouter([
   {
     path: "/admin",
@@ -67,6 +73,18 @@ const router = createBrowserRouter([
       {
         path: "employees/sousChefs/edit/:id",
         element: <UpdateSousChef />,
+      },
+      {
+        path: "menu",
+        element: <MenuAdmin />,
+      },
+      {
+        path: "menu/update-menu/:menuId",
+        element: <UpdateMenuAdmin />,
+      },
+      {
+        path: "menu/update-menu/:menuId/:menuId/items/update/:menuItemId",
+        element: <UpdateMenuItem />,
       },
     ],
   },
