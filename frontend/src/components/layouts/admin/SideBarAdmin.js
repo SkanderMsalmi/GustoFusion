@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from 'react-router-dom';
 
 function SideBarAdmin() {
   return (
@@ -23,6 +24,11 @@ function SideBarAdmin() {
             Tables
           </a>
         </li>
+        <li className="nav-item">
+  <Link to="/admin/menu" className="nav-link text-dark">
+    Menu
+  </Link>
+</li>
       </ul>
     </div>
   );

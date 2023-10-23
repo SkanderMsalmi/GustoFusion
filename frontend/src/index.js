@@ -1,5 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
+import { Router, Route, Link, Switch } from 'react-router-dom';
+
 import "./index.css";
 import reportWebVitals from "./reportWebVitals";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
@@ -9,6 +11,10 @@ import Home from "./pages/Home";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
 import BookTableSection from "./components/common/BookTableSection";
+import MenuAdmin from "./components/common/Admin/Menu/MenuAdmin";
+import UpdateMenuAdmin from "./components/common/Admin/Menu/UpdateMenuAdmin";
+import UpdateMenuItem from "./components/common/Admin/Menu/UpdateMenuItem";
+
 const router = createBrowserRouter([
   {
     path: "/admin",
@@ -18,6 +24,18 @@ const router = createBrowserRouter([
       {
         path: "team",
         element: <h1>Hello Admin</h1>,
+      },
+      {
+        path: "menu",
+        element: <MenuAdmin/>,
+      },
+      {
+        path: "menu/update-menu/:menuId",
+        element: <UpdateMenuAdmin/>,
+      },
+      {
+        path: "menu/update-menu/:menuId/:menuId/items/update/:menuItemId",
+        element: <UpdateMenuItem/>,
       },
     ],
   },
